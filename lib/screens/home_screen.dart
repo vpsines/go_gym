@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_gym/constants/app_colors.dart';
+import 'package:go_gym/screens/excercise_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -94,10 +96,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   width: 5,
                 ),
-                Icon(
-                  Icons.arrow_forward,
-                  size: 20,
-                  color: AppColors.homePageIcons,
+                InkWell(
+                  onTap: (){
+                    Get.to(() =>const ExcerciseScreen());
+                  },
+                  child: Icon(
+                    Icons.arrow_forward,
+                    size: 20,
+                    color: AppColors.homePageIcons,
+                  ),
                 )
               ],
             ),
