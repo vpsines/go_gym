@@ -14,16 +14,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   List info = [];
 
-  initData(){
-      DefaultAssetBundle.of(context).loadString("assets/json/info.json").then((value){
-        setState(() {
-          info =json.decode(value);
-        });
+  initData() async {
+    await DefaultAssetBundle.of(context)
+        .loadString("assets/json/info.json")
+        .then((value) {
+      setState(() {
+        info = json.decode(value);
       });
+    });
   }
 
   @override
@@ -97,8 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 5,
                 ),
                 InkWell(
-                  onTap: (){
-                    Get.to(() =>const ExcerciseScreen());
+                  onTap: () {
+                    Get.to(() => const ExcerciseScreen());
                   },
                   child: Icon(
                     Icons.arrow_forward,
@@ -296,51 +296,53 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Expanded(child: OverflowBox(
+            Expanded(
+                child: OverflowBox(
               maxWidth: MediaQuery.of(context).size.width,
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio:1.5
-                ),
-                shrinkWrap: true,
-                itemCount: info.length,
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                itemBuilder: (context, index) {
-            
-                return Container(
-                  width: (MediaQuery.of(context).size.width - 90) /2,
-                  height: 170,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      image:  DecorationImage(
-                          image: AssetImage(info[index]["img"])),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 3,
-                            offset: const Offset(5, 5),
-                            color: AppColors.gradientSecond.withOpacity(0.1)),
-                        BoxShadow(
-                            blurRadius: 3,
-                            offset: const Offset(-5, -5),
-                            color: AppColors.gradientSecond.withOpacity(0.1))
-                      ]),
-                      child: Center
-                    (
-                      child: Align(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1.5),
+                  shrinkWrap: true,
+                  itemCount: info.length,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: (MediaQuery.of(context).size.width - 90) / 2,
+                      height: 170,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                              image: AssetImage(info[index]["img"])),
+                          boxShadow: [
+                            BoxShadow(
+                                blurRadius: 3,
+                                offset: const Offset(5, 5),
+                                color:
+                                    AppColors.gradientSecond.withOpacity(0.1)),
+                            BoxShadow(
+                                blurRadius: 3,
+                                offset: const Offset(-5, -5),
+                                color:
+                                    AppColors.gradientSecond.withOpacity(0.1))
+                          ]),
+                      child: Center(
+                          child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: Text(info[index]["title"],
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: AppColors.homePageDetail,
-                          
-                        ),),
-                      )
-                    ),
-                );
-              }),
+                        child: Text(
+                          info[index]["title"],
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: AppColors.homePageDetail,
+                          ),
+                        ),
+                      )),
+                    );
+                  }),
             ))
           ],
         ),
